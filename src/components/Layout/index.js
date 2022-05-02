@@ -1,27 +1,30 @@
-import React, {useContext} from 'react';
-//import { useTheme } from 'styled-components';
-import { ThemeContext } from '../../context/ThemeContext';
+import React from "react";
+import Header from "../Header";
+import PostsList from "../PostsList";
+import Footer from "../Footer";
 
-import Header from '../Header';
-import PostsList from '../PostsList';
-import Footer from '../Footer';
+export default class Layout extends React.Component {
+  componentDidMount() {
+    console.log("componente montou");
+    document.addEventListener("scroll", this.handleScroll);
+  }
 
-export default function Layout() {
-  const { onToggleTheme, selectedTheme} = useContext(ThemeContext);
+  componentWillUnmount() {
+    console.log("componente vai desmontar");
+    document.removeEventListener("scroll", this.handleScroll);
+  }
 
-  return (
-    <>
-      <Header onToggleTheme={onToggleTheme} selectedTheme={selectedTheme}/>
-      <PostsList />
-      <Footer onToggleTheme={onToggleTheme} selectedTheme={selectedTheme}/>
+  handleScroll = () => {
+    console.log("scrolled");
+  };
 
-      {/* <div style={{
-        marginTop: 24, 
-        backgroundColor: theme.footerBackgroundColor, 
-        padding: 24 }}
-      >
-        Hello World!
-      </div> */}
-    </>
-  );
+  render() {
+    return (
+      <>
+        <Header />
+        <PostsList />
+        <Footer />
+      </>
+    );
+  }
 }
